@@ -1,11 +1,12 @@
 import time
-
+import allure
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class SmartphonesPage(Base):
@@ -51,6 +52,7 @@ class SmartphonesPage(Base):
     # Действия
 
     def clear_price_min(self):
+        time.sleep(2)
         self.get_price_min().clear()
         print('Удалён порог дефолтной минимальной цены')
 
@@ -93,14 +95,19 @@ class SmartphonesPage(Base):
     # Методы
 
     def select_input_min_and_max_price(self):
-        self.clear_price_min()
-        self.input_price_min('12000')
-        self.clear_price_max()
-        self.input_price_max('45000')
+        with allure.step('Select input min and max price'):
+            Logger.add_start_step(method='select_input_min_and_max_price')
+            self.clear_price_min()
+            self.input_price_min('12000')
+            self.clear_price_max()
+            self.input_price_max('45000')
+            Logger.add_end_step(url=self.browser.current_url, method='select_input_min_and_max_price')
 
     def add_product_in_basket(self):
-        self.add_prod_1_in_basket()
-        self.disable_option_menu()
-
-        self.add_prod_2_in_basket()
-        self.click_move_to_basket()
+        with allure.step('Add product in basket'):
+            Logger.add_start_step(method='add_product_in_basket')
+            self.add_prod_1_in_basket()
+            self.disable_option_menu()
+            self.add_prod_2_in_basket()
+            self.click_move_to_basket()
+            Logger.add_end_step(url=self.browser.current_url, method='add_product_in_basket')

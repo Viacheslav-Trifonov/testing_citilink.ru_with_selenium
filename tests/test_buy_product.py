@@ -3,8 +3,9 @@ from pages.checkout_page import CheckoutPage
 from pages.main_page import MainPage
 from pages.smartphones_page import SmartphonesPage
 from pages.subcategory_page import SubcategoryPage
+import allure
 
-
+@allure.description('Test business path')
 def test_business_path(browser):
     print('Старт тест 1')
     mp = MainPage(browser)

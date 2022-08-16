@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
+import allure
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class BasketPage(Base):
@@ -29,4 +30,7 @@ class BasketPage(Base):
     # Методы
 
     def go_to_checkout(self):
-        self.click_move_to_making_order()
+        with allure.step('Go to checkout'):
+            Logger.add_start_step(method='go_to_checkout')
+            self.click_move_to_making_order()
+            Logger.add_end_step(url=self.browser.current_url, method='go_to_checkout')

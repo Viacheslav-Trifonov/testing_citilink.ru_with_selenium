@@ -3,8 +3,9 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
+import allure
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class CheckoutPage(Base):
@@ -70,12 +71,15 @@ class CheckoutPage(Base):
     # Methods
 
     def input_making_order(self):
-        time.sleep(3)
-        self.input_firstname('Иван')
-        self.input_lastname('Иванов')
-        self.input_phone('89199998877')
-        self.click_get_pickup()
-        self.select_pickup_point()
-        self.assert_url('https://www.citilink.ru/order/checkout/')
-        self.precense_button(self.order_confirmation_true)
-        self.get_screenshot()
+        with allure.step('Input making order'):
+            Logger.add_start_step(method='input_making_order')
+            time.sleep(3)
+            self.input_firstname('Иван')
+            self.input_lastname('Иванов')
+            self.input_phone('89199998877')
+            self.click_get_pickup()
+            self.select_pickup_point()
+            self.assert_url('https://www.citilink.ru/order/checkout/')
+            self.precense_button(self.order_confirmation_true)
+            self.get_screenshot()
+            Logger.add_end_step(url=self.browser.current_url, method='input_making_order')

@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
+import allure
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class SubcategoryPage(Base):
@@ -29,4 +30,7 @@ class SubcategoryPage(Base):
     # Методы
 
     def select_category_smartphones(self):
-        self.click_select_category_smartphones()
+        with allure.step('Select category smartphones'):
+            Logger.add_start_step(method='select_category_smartphones')
+            self.click_select_category_smartphones()
+            Logger.add_end_step(url=self.browser.current_url, method='select_category_smartphones')

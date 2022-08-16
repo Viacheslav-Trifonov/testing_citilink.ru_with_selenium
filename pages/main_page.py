@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
+import allure
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class MainPage(Base):
@@ -61,10 +62,16 @@ class MainPage(Base):
     # Methods
 
     def select_city_location(self):
-        self.click_select_location()
-        self.click_input_city('Казань')
-        self.click_choose_city()
+        with allure.step('Select city location'):
+            Logger.add_start_step(method='select_city_location')
+            self.click_select_location()
+            self.click_input_city('Казань')
+            self.click_choose_city()
+            Logger.add_end_step(url=self.browser.current_url, method='select_city_location')
 
     def select_category_smartphones(self):
-        self.click_product_catalog()
-        self.click_cat_smartphones()
+        with allure.step('Select category smartphones'):
+            Logger.add_start_step(method='select_category_smartphones')
+            self.click_product_catalog()
+            self.click_cat_smartphones()
+            Logger.add_end_step(url=self.browser.current_url, method='select_category_smartphones')
